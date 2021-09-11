@@ -23,7 +23,7 @@ router.post("/order", function (req, res, next) {
   var orderId = req.body.id;
   var items = req.body.items;
   let json_info = req;
-  console.log(items);
+ // console.log(items);
   var updated_req_body = req.body;
   updated_req_body["addresses"] = [];
   var itemsProcessed = 0;
@@ -31,9 +31,9 @@ router.post("/order", function (req, res, next) {
     console.log(item.id);
     Item.find({ id: item.id }, function (err, data) {
       if (err) {
-        console.log(err);
+       console.log(err);
       } else {
-        console.log("First function call : ", data[0].category);
+       // console.log("First function call : ", data[0].category);
         Catalogue.find(
           { category_id: data[0].category },
           function (err, results) {
@@ -41,11 +41,11 @@ router.post("/order", function (req, res, next) {
               console.log(err);
             } else {
               var count = results.length;
-              console.log(
+             /* console.log(
                 "Second function call : ",
                 data[0].category,
                 results[0].addresses[randomInteger(0, count)].address
-              );
+              );*/
               updated_req_body["addresses"].push(
                 results[0].addresses[randomInteger(0, count)].address
               );
@@ -95,7 +95,7 @@ router.post("/updatedeliveryagent", function (req, res, next) {
       } else {
         Order.create(result)
           .then(function (orders) {
-            console.log(orders,req.body.delivery_person_id);
+           // console.log(orders,req.body.delivery_person_id);
             orders.delivery_person_id = req.body.delivery_person_id;
             res.send(orders);
           })
@@ -111,7 +111,7 @@ router.post("/updatestatus", function (req, res, next) {
     } else {
       Order.create(result)
         .then(function (orders) {
-          console.log(orders,req.body.status);
+          //console.log(orders,req.body.status);
           orders.status = req.body.status;
           res.send(orders);
         })
